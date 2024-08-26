@@ -1,7 +1,7 @@
-import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
-import styled from 'styled-components';
-import { AuthContext } from '../contexts/AuthContext';
+import React, { useContext } from "react";
+import { Link } from "react-router-dom";
+import styled from "styled-components";
+import { AuthContext } from "../contexts/AuthContext";
 
 const HeaderContainer = styled.div`
   background-color: #333;
@@ -64,7 +64,9 @@ const Header = () => {
         <Link to="/noticeBoard">게시판</Link>
         <Link to="/studentinform">학생정보</Link>
         {isAuthenticated ? (
-          <Link to="/" onClick={logout}>로그아웃</Link>
+          <Link to="/" onClick={logout}>
+            로그아웃
+          </Link>
         ) : (
           <Link to="/login">로그인</Link>
         )}

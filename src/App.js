@@ -1,13 +1,14 @@
-import React, { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Home from './pages/Home';
-import Login from './pages/Login';
-import Timetable from './pages/Timetable';
-import Header from './components/Header';
-import GlobalStyle from './GlobalStyle';
-import Signup from './pages/Signup';
+import React, { useState } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import Timetable from "./pages/Timetable";
+import Header from "./components/Header";
+import GlobalStyle from "./GlobalStyle";
+import Signup from "./pages/Signup";
+import STDInfo from "./pages/STDInfo";
 
-import { AuthContext } from './contexts/AuthContext';
+import { AuthContext } from "./contexts/AuthContext";
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -30,6 +31,7 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/timetable" element={<Timetable />} />
+          <Route path="/studentinform" element={<STDInfo />} />
         </Routes>
       </Router>
     </AuthContext.Provider>
