@@ -7,7 +7,7 @@ const GlobalStyle = createGlobalStyle`
         font-weight: 400;
         font-style: normal;
     }
-
+    
     body {
         font-family: 'Pretendard-Regular', sans-serif;
         color: #e0e0e0;
