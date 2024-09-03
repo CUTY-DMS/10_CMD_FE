@@ -1,5 +1,4 @@
 import styled from "styled-components";
-
 import Student from "../components/StudentComponent";
 function STDInfo() {
   return (
@@ -73,6 +72,7 @@ const Ul = styled.ul`
   display: flex;
   flex-direction: column;
   gap: 20px;
+  list-style: none;
 `;
 
 const Main = styled.div`
@@ -81,6 +81,8 @@ const Main = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  width: 100vw;
+  height: 100vh;
 `;
 
 // const Navigation = styled.nav`

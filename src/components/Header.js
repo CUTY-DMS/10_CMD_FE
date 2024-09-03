@@ -13,7 +13,7 @@ const HeaderContainer = styled.div`
   top: 0;
   left: 0;
   right: 0;
-  z-index: 1000; /* 다른 콘텐츠보다 위에 있도록 설정 */
+  z-index: 1000;
 `;
 
 const LogoLink = styled(Link)`
@@ -47,6 +47,11 @@ const NavLinks = styled.div`
     color: white;
     margin-left: 20px;
     text-decoration: none;
+    position: relative;
+
+    &:hover {
+      text-decoration: underline;
+    }
   }
 `;
 
