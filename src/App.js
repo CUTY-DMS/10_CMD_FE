@@ -5,12 +5,13 @@ import Login from "./pages/Login";
 import Timetable from "./pages/Timetable";
 import Header from "./components/Header";
 import GlobalStyle from "./GlobalStyle";
-import Signup from "./pages/Signup";
+import Register from "./pages/Signup";
 import STDInfo from "./pages/STDInfo";
-import Seemore from "./pages/STDInfoSeemore";
+import STDInfoSeemore from "./pages/STDInfoSeemore";
+import Announcement from "./pages/Announcement"; 
+import AnnounceRead from "./pages/AnnounceRead"; 
 
 import { AuthContext } from "./contexts/AuthContext";
-import STDInfoSeemore from "./pages/STDInfoSeemore";
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -27,14 +28,16 @@ const App = () => {
     <AuthContext.Provider value={{ isAuthenticated, login, logout }}>
       <GlobalStyle />
       <Router>
-        <Header />
+        <Header /> 
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
+          <Route path="/signup" element={<Register />} />
           <Route path="/timetable" element={<Timetable />} />
           <Route path="/studentinform" element={<STDInfo />} />
           <Route path="/seemore" element={<STDInfoSeemore />} />
+          <Route path="/announcement" element={<Announcement />} />
+          <Route path="/announcement/:id" element={<AnnounceRead />} />  
         </Routes>
       </Router>
     </AuthContext.Provider>

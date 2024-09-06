@@ -66,7 +66,7 @@ const Header = () => {
       </LogoLink>
       <NavLinks>
         <Link to="/timetable">시간표</Link>
-        <Link to="/noticeBoard">게시판</Link>
+        <Link to="/announcement">공지사항</Link>
         <Link to="/studentinform">학생정보</Link>
         {isAuthenticated ? (
           <Link to="/" onClick={logout}>
