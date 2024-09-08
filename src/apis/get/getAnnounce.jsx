@@ -20,7 +20,7 @@
 //   }
 // };
 
-import instance from "../axios";
+import instance from "axios";
 
 export const announceDetail = async (id) => {
   return await instance.get(`/notification/${id}`);

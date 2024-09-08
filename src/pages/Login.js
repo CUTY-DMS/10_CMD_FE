@@ -5,7 +5,7 @@ import { signIn } from "../apis/auth/signIn";
 
 export const Login = () => {
   const [data, setData] = useState({
-    userId: "",
+    accountId: "",
     userName: "",
     password: ""
   });
@@ -68,9 +68,7 @@ export const Login = () => {
 
         {/* 계정 관련 링크들 */}
         <LinksWrapper>
-          <CButton to="/SignUp">회원가입</CButton>
-          <Separator>|</Separator>
-          <CButton to="/findPassword">비밀번호 찾기</CButton>
+        아직 계정이 없으신가요? &nbsp; <CButton to="/SignUp"> 회원가입</CButton>
         </LinksWrapper>
 
         {/* 로그인 버튼 */}

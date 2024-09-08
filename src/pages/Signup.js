@@ -5,13 +5,13 @@ import { signUp } from "../apis/auth/signUp";
 
 const Register = () => {
   const [data, setData] = useState({
-    userId: "",
-    password: "",
-    username: "",
-    grader: 1,
-    schoolClass: 1,
-    user_email: "",
-    subjectType: "",
+  accountId: "",
+  password: "",
+  email: "1",
+  phonenumber: "1",
+  major: "",
+  classNumber: "",
+  birth: "1"
   });
   const [check, setCheck] = useState("");
 
