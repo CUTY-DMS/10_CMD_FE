@@ -17,7 +17,7 @@ const Student = () => {
   );
 };
 
-const Log = styled.img`
+const Logo = styled.img`
   width: 28%;
 `;
 

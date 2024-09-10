@@ -6,8 +6,7 @@ import { signIn } from "../apis/auth/signIn";
 export const Login = () => {
   const [data, setData] = useState({
     accountId: "",
-    userName: "",
-    password: ""
+    password: "",
   });
 
   const handleChange = (e) => {
@@ -32,7 +31,6 @@ export const Login = () => {
       <Form onSubmit={(e) => e.preventDefault()}>
         <Title>로그인</Title>
 
-        {/* 아이디 입력 필드 */}
         <InputWrapper>
           <Label>아이디</Label>
           <Input
@@ -43,7 +41,6 @@ export const Login = () => {
           />
         </InputWrapper>
 
-        {/* 계정명 입력 필드 */}
         <InputWrapper>
           <Label>이름</Label>
           <Input
@@ -54,7 +51,6 @@ export const Login = () => {
           />
         </InputWrapper>
 
-        {/* 비밀번호 입력 필드 */}
         <InputWrapper>
           <Label>비밀번호</Label>
           <Input
@@ -66,12 +62,10 @@ export const Login = () => {
           />
         </InputWrapper>
 
-        {/* 계정 관련 링크들 */}
         <LinksWrapper>
         아직 계정이 없으신가요? &nbsp; <CButton to="/SignUp"> 회원가입</CButton>
         </LinksWrapper>
 
-        {/* 로그인 버튼 */}
         <Button type="button" onClick={handleLogin}>
           로그인
         </Button>
@@ -79,8 +73,6 @@ export const Login = () => {
     </Container>
   );
 };
-
-// 스타일 정의
 
 const Container = styled.div`
   display: flex;
@@ -137,7 +129,7 @@ const Input = styled.input`
   color: #333;
   &:focus {
     border-bottom: 2px solid #333; /* 포커스 시 밑줄 색상 변경 */
-    outline: none; /* 기본 포커스 아웃라인 제거 */
+    outline: none;
   }
 `;
 
@@ -166,11 +158,11 @@ const LinksWrapper = styled.div`
   color: #333;
 `;
 
-const Separator = styled.span`
+/*const Separator = styled.span`
   color: #333;
   font-weight: bold;
   margin: 0 8px;
-`;
+`;*/
 
 const CButton = styled(Link)`
   cursor: pointer;

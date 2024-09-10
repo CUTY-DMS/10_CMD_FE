@@ -17,7 +17,7 @@ export const AnnounceWrite = () => {
   const handleSubmit = () => {
     postAnnc(data).then(res => {
       if (res) {
-        alert("글이 성공적으로 작성되었습니다.");
+        alert("글이 성공적으로 작성되었습니다.😎");
         window.location.href = "/announcement";
       }
     });

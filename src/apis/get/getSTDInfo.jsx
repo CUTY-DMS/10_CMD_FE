@@ -1,5 +1,5 @@
 import instance from "../axios";
 
-export const getStudentList = async () => {
+export const getSTDInfo = async () => {
   return await instance.get(`/getSTDInfo`);
 };

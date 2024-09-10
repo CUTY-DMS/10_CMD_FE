@@ -5,13 +5,13 @@ import { signUp } from "../apis/auth/signUp";
 
 const Register = () => {
   const [data, setData] = useState({
-  accountId: "",
-  password: "",
-  email: "1",
-  phonenumber: "1",
-  major: "",
-  classNumber: "",
-  birth: "1"
+    accountId: "",
+    password: "",
+    email: "",
+    phonenumber: "",
+    major: "",
+    classNumber: "",
+    birth: "",
   });
   const [check, setCheck] = useState("");
 
@@ -22,111 +22,116 @@ const Register = () => {
 
   const handleSignUp = () => {
     if (data.password === check) {
-      signUp(data).then((res) => {
-        if (res) {
-          alert("계정이 생성되었습니다");
-          window.location.href = "/Login";
-        }
-      }).catch((error) => {
-        console.error("회원가입 오류:", error);
-      });
+      signUp(data)
+        .then((res) => {
+          if (res) {  // 응답이 있는 경우 처리
+            alert("회원가입이 성공적으로 완료되었습니다.😆");
+            window.location.href = "/Login";
+          } else {
+            console.error("회원가입 실패: 응답 데이터가 없습니다.");
+          }
+        })
+        .catch((error) => {
+          console.error("회원가입 오류:", error);
+        });
     } else {
-      alert("비밀번호를 확인해주세요.");
+      alert("비밀번호가 일치하지 않습니다.😭");
     }
-  };
+  };  
 
   return (
     <Container>
       <Form onSubmit={(e) => e.preventDefault()}>
         <Title>회원가입</Title>
 
-        {/* 아이디, 이름, 비밀번호, 비밀번호 확인  */}
-        <InputWrapper>
-          <Label>아이디</Label>
-          <Input
-            name="userId"
-            placeholder="아이디를 입력하세요"
-            onChange={handleChange}
-            required
-          />
-        </InputWrapper>
+        <InputRow>
+          <InputWrapper>
+            <Label>아이디</Label>
+            <Input
+              name="accountId"
+              placeholder="아이디를 입력하세요."
+              onChange={handleChange}
+              required
+            />
+          </InputWrapper>
 
-        <InputWrapper>
-          <Label>이름</Label>
-          <Input
-            name="username"
-            placeholder="이름을 입력하세요"
-            onChange={handleChange}
-            required
-          />
-        </InputWrapper>
+          <InputWrapper>
+            <Label>이메일</Label>
+            <Input
+              name="email"
+              placeholder="이메일을 입력하세요."
+              onChange={handleChange}
+              required
+            />
+          </InputWrapper>
+        </InputRow>
 
-        <InputWrapper>
-          <Label>비밀번호</Label>
-          <Input
-            name="password"
-            type="password"
-            placeholder="비밀번호를 입력하세요"
-            onChange={handleChange}
-            required
-          />
-        </InputWrapper>
+        <InputRow>
+          <InputWrapper>
+            <Label>비밀번호</Label>
+            <Input
+              name="password"
+              type="password"
+              placeholder="비밀번호를 입력하세요."
+              onChange={handleChange}
+              required
+            />
+          </InputWrapper>
 
-        <InputWrapper>
-          <Label>비밀번호 확인</Label>
-          <Input
-            type="password"
-            placeholder="비밀번호를 입력하세요"
-            onChange={(e) => setCheck(e.target.value)}
-            required
-          />
-        </InputWrapper>
+          <InputWrapper>
+            <Label>비밀번호 확인</Label>
+            <Input
+              type="password"
+              placeholder="비밀번호 확인"
+              onChange={(e) => setCheck(e.target.value)}
+              required
+            />
+          </InputWrapper>
+        </InputRow>
 
-        {/* 학년, 반, 과목 필드 한 줄 배치 */}
-        <OptionsRow>
-          <SelectWrapper>
-            <Label>학년</Label>
-            <Select name="grader" onChange={handleChange}>
-              <option value="" disabled>
-                학년
-              </option>
-              <option value={1}>1학년</option>
-              <option value={2}>2학년</option>
-              <option value={3}>3학년</option>
-            </Select>
-          </SelectWrapper>
+        <InputRow>
+          <InputWrapper>
+            <Label>이름</Label>
+            <Input
+              name="userName"
+              placeholder="이름을 입력하세요."
+              onChange={handleChange}
+              required
+            />
+          </InputWrapper>
 
-          <SelectWrapper>
-            <Label>반</Label>
-            <Select name="schoolClass" onChange={handleChange}>
-              <option value="" disabled>
-                반
-              </option>
-              <option value={1}>1반</option>
-              <option value={2}>2반</option>
-              <option value={3}>3반</option>
-              <option value={4}>4반</option>
-            </Select>
-          </SelectWrapper>
+          <InputWrapper>
+            <Label>전공</Label>
+            <Input
+              name="major"
+              placeholder="전공을 입력하세요."
+              onChange={handleChange}
+              required
+            />
+          </InputWrapper>
+        </InputRow>
 
-          <SelectWrapper>
-            <Label>과목</Label>
-            <Select name="subjectType" onChange={handleChange}>
-              <option value="" disabled>
-                과목
-              </option>
-              <option value="KOREAN">국어</option>
-              <option value="MATH">수학</option>
-              <option value="SOCIAL">사회</option>
-              <option value="SCIENCE">과학</option>
-              <option value="ENGLISH">영어</option>
-              <option value="PROGRAMMING">자료구조</option>
-              <option value="WEBBASIC">웹 기초</option>
-              <option value="ATHLETIC">체육</option>
-              <option value="MUSIC">음악</option>
-            </Select>
-          </SelectWrapper>
-        </OptionsRow>
+        <InputRow>
+          <InputWrapper>
+            <Label>학번</Label>
+            <Input
+              name="classNumber"
+              placeholder="학년과 반을 입력하세요. (ex: 1-2)"
+              onChange={handleChange}
+              required
+            />
+          </InputWrapper>
+
+          <InputWrapper>
+            <Label>생년월일</Label>
+            <Input
+              name="birth"
+              placeholder="생년월일을 입력하세요. (ex: 080402)"
+              onChange={handleChange}
+              required
+            />
+          </InputWrapper>
+        </InputRow>
 
         <Button type="button" onClick={handleSignUp}>
           회원가입
@@ -140,8 +145,6 @@ const Register = () => {
   );
 };
 
-// 스타일 정의
-
 const Container = styled.div`
   display: flex;
   justify-content: center;
@@ -149,87 +152,68 @@ const Container = styled.div`
   height: 100vh;
   width: 100vw;
   background-color: #e6e6e6;
+  padding: 0; /* 위, 아래 여백 제거 */
   margin: 0;
-  padding: 0;
-  overflow: hidden;
+  overflow: hidden; /* 스크롤 제거 */
 `;
 
 const Form = styled.form`
   background-color: #f2f2f2;
-  padding: 30px 20px;
+  padding: 40px 30px;
   border-radius: 8px;
-  width: 500px;
+  width: 680px; /* 폼 너비를 더 넓게 조정 */
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start; /* 입력 필드와 버튼을 왼쪽 정렬 */
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  margin-top: 70px;
+  margin-top: 70px; /* 폼을 화면 중앙보다 아래로 이동 */
 `;
 
 const Title = styled.h1`
   font-size: 1.8rem;
   font-weight: bold;
-  margin-bottom: 18px; 
+  margin-bottom: 30px; /* 제목과 첫 입력 필드 사이의 간격을 넓힘 */
   color: #333;
-  align-self: flex-start; 
+  align-self: flex-start; /* 제목을 왼쪽 정렬 */
+`;
+
+const InputRow = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 20px; /* 필드 간 간격 조정 */
 `;
 
 const InputWrapper = styled.div`
-  width: 100%;
-  margin-bottom: 10px; /* 입력 필드 간격 조정 */
+  width: 45%; /* 입력 필드 너비를 줄여서 컴팩트하게 만듦 */
 `;
 
 const Label = styled.label`
   font-size: 0.9rem;
   font-weight: bold;
   color: #333;
-  margin-bottom: 5px;
+  margin-bottom: 8px;
   display: block;
 `;
 
 const Input = styled.input`
-  width: 96.5%;
-  padding: 8px;
-  border: none; /* 상하좌우 경계선 제거 */
-  border-bottom: 2px solid #ccc; /* 밑줄만 표시 */
-  background: transparent; /* 배경 투명하게 설정 */
-  font-size: 14px;
-  color: #333;
-  &:focus {
-    border-bottom: 2px solid #333; /* 포커스 시 밑줄 색상 변경 */
-    outline: none; /* 기본 포커스 아웃라인 제거 */
-  }
-`;
-
-const OptionsRow = styled.div`
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  margin-bottom: 15px;
-`;
-
-const SelectWrapper = styled.div`
-  width: 32%;
-`;
-
-const Select = styled.select`
-  width: 100%;
-  padding: 8px;
-  border: none; 
+  width: 90%;
+  padding: 10px;
+  border: none;
   border-bottom: 2px solid #ccc;
-  background: transparent; /* 배경 투명하게 설정 */
+  background: transparent;
   font-size: 14px;
   color: #333;
   &:focus {
-    border-bottom: 2px solid #333; 
-    outline: none; 
+    border-bottom: 2px solid #333;
+    outline: none;
   }
 `;
 
 const Button = styled.button`
   width: 100%;
-  padding: 10px;
-  margin-top: 15px;
+  padding: 12px;
+  margin-top: 25px;
   background-color: #888;
   color: #fff;
   border: none;
@@ -243,17 +227,19 @@ const Button = styled.button`
 
 const NoAccount = styled.p`
   color: #333;
-  margin-top: 15px;
+  margin-top: 20px;
   font-size: 0.85rem;
+  text-align: center; /* 가운데 정렬 */
+  width: 100%; /* 가운데 정렬을 위해 전체 너비 사용 */
 `;
 
 const CButton = styled(Link)`
   cursor: pointer;
   color: #333;
   font-weight: bold;
-  text-decoration: none; /* 기본 상태에서 언더라인 없음 */
+  text-decoration: none;
   &:hover {
-    text-decoration: underline; /* 호버 시 언더라인 추가 */
+    text-decoration: underline;
   }
 `;
 

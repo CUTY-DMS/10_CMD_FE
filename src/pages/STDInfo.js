@@ -1,13 +1,13 @@
 import { styled } from "styled-components";
 import React, { useState, useEffect } from "react";
-import { getStudentList } from "../apis/get/getSTDInfo";
+import { getSTDList } from "../apis/get/getSTDList"; 
 
 export const STDInfo = () => {
   const [students, setStudents] = useState([]);
 
   useEffect(() => {
-    getStudentList().then(res => {
-      if(res) {
+    getSTDList().then(res => {
+      if (res) {
         const data = localStorage.getItem("userInfo").split(',');
         const filteredStudents = res.data.currentStudent
           .sort((a, b) => a.number - b.number)
@@ -15,7 +15,7 @@ export const STDInfo = () => {
             student.grader === Number(data[0]) &&
             student.schoolClass === Number(data[1])
           );
-        
+
         setStudents(filteredStudents);
       }
     })
