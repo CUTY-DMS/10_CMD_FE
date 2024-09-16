@@ -1,33 +1,41 @@
-import React, { useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import styled from "styled-components";
-import { AuthContext } from "../contexts/AuthContext";
-import { getAdminInfo } from "../apis/get/getAdminInfo";
-import logo from "../assets/CMD_logo(dark)png 2 (1).png";
+import React, { useContext, useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
+import { AuthContext } from '../contexts/AuthContext';
+import { getAdminInfo } from '../apis/get/getAdminInfo';
+import logo from '../assets/CMD_logo(dark)png 2 (1).png';
 
 const Header = () => {
   const { isAuthenticated, logout } = useContext(AuthContext);
   const [userInfo, setUserInfo] = useState([]);
 
   useEffect(() => {
-    if (!localStorage.getItem("userInfo")) {
-      getAdminInfo().then(res => {
-        if (res) {
-          const data = Object.values(res.data).sort();
-          setUserInfo(data);
-          localStorage.setItem("userInfo", JSON.stringify(data));
-        }
-      });
-    } else {
-      const data = JSON.parse(localStorage.getItem("userInfo"));
-      setUserInfo(data);
+    if (isAuthenticated) {
+      if (!localStorage.getItem('userInfo')) {
+        getAdminInfo().then(res => {
+          if (res) {
+            const data = res.data;
+            const grader = data.classNumber.slice(0, 1); 
+            const schoolClass = data.classNumber.slice(1); 
+            const subjectType = data.major; 
+            const username = data.phonenumber; 
+
+            const userData = [grader, schoolClass, subjectType, username];
+            setUserInfo(userData);
+            localStorage.setItem('userInfo', JSON.stringify(userData));
+          }
+        });
+      } else {
+        const storedData = JSON.parse(localStorage.getItem('userInfo'));
+        setUserInfo(storedData);
+      }
     }
-  }, []);
+  }, [isAuthenticated]);
 
   const handleLogOut = () => {
-    localStorage.removeItem("accessToken");
-    localStorage.removeItem("refreshToken");
-    localStorage.removeItem("userInfo");
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('refreshToken');
+    localStorage.removeItem('userInfo');
     logout();
   };
 
@@ -42,7 +50,9 @@ const Header = () => {
         <Link to="/studentinform">학생정보</Link>
         {isAuthenticated ? (
           <UserInfo>
-            <UserName to="/MyProfile">{userInfo[0] || "이름"}</UserName>
+            <UserName to="/MyProfile">
+              {userInfo[0] || '학년'} - {userInfo[1] || '반'} {userInfo[3] || '이름'}
+            </UserName>
             <Logout onClick={handleLogOut}>로그아웃</Logout>
           </UserInfo>
         ) : (

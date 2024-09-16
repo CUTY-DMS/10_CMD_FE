@@ -1,7 +1,7 @@
 import { refresh } from "./refresh";
 import axios from "axios";
 
-const instance = axios.create({
+export const instance = axios.create({
   baseURL: "http://43.201.199.73:8080",
   timeout: 1000,
   headers: {

@@ -11,7 +11,7 @@ export const TimeTable = ({ Day, Subs }) => {
             <TableCell>{index + 1}교시</TableCell>
             <TableCell>{data}</TableCell>
           </TableRow>
-        ))}
+        ))}s
       </Table>
     </Wrapper>
   );

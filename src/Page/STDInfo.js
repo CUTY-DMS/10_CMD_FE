@@ -1,6 +1,6 @@
 import { styled } from "styled-components";
 import React, { useState, useEffect } from "react";
-import { getSTDList } from "../apis/get/getSTDList"; 
+import { getSTDList } from "../apis/get/getSTD"; 
 
 export const STDInfo = () => {
   const [students, setStudents] = useState([]);

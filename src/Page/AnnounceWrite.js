@@ -1,12 +1,12 @@
-import { styled } from 'styled-components';
 import React, { useState } from 'react';
-import { postAnnc } from '../apis/post/postAnnounce';
+import { styled } from 'styled-components';
 import Header from '../components/Header';
 
 export const AnnounceWrite = () => {
   const [data, setData] = useState({
     title: "",
-    content: ""
+    content: "",
+    phoneNumber: "User Name" // Simulate logged-in user's name
   });
 
   const handleChange = (e) => {
@@ -15,12 +15,11 @@ export const AnnounceWrite = () => {
   };
 
   const handleSubmit = () => {
-    postAnnc(data).then(res => {
-      if (res) {
-        alert("글이 성공적으로 작성되었습니다.😎");
-        window.location.href = "/announcement";
-      }
-    });
+    const storedNotices = JSON.parse(localStorage.getItem('notices')) || [];
+    storedNotices.push(data);
+    localStorage.setItem('notices', JSON.stringify(storedNotices));
+    alert("글이 성공적으로 작성되었습니다.😎");
+    window.location.href = "/announcement";
   };
 
   return (
@@ -45,7 +44,7 @@ const Wrapper = styled.div`
   align-items: center;
   width: 100%;
   height: 100vh;
-  background-color: #f0f0f0;
+  background-color: #f8f9fa; /* Light gray background */
   padding-top: 70px;
 `;
 
@@ -53,16 +52,16 @@ const ContentContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 50%;
-  background-color: white;
+  width: 60%; /* Adjusted width */
+  background-color: #ffffff; /* White background */
   margin-top: 30px;
   padding: 30px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 12px; /* Slightly rounded corners */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1); /* Subtle shadow */
 `;
 
 const InputContainer = styled.div`
-  width: 100%;
+  width: 94%;
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -70,20 +69,30 @@ const InputContainer = styled.div`
 
 const Title = styled.input`
   width: 100%;
-  padding: 10px;
-  font-size: 18px;
-  border: none;
-  border-bottom: 1px solid #ddd;
+  padding: 12px;
+  font-size: 20px; /* Increased font size for better readability */
+  border: 1px solid #ced4da; /* Light border color */
+  border-radius: 4px; /* Slightly rounded corners */
+  outline: none;
+
+  &:focus {
+    border-color: #15181b; /* Highlight color on focus */
+  }
 `;
 
 const Text = styled.textarea`
   width: 100%;
   height: 300px;
-  padding: 10px;
+  padding: 12px;
   font-size: 16px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  resize: none;
+  border: 1px solid #ced4da; 
+  border-radius: 4px; 
+  resize: none; 
+  outline: none;
+
+  &:focus {
+    border-color: #6d7379; 
+  }
 `;
 
 const ButtonContainer = styled.div`
@@ -94,15 +103,19 @@ const ButtonContainer = styled.div`
 `;
 
 const SubmitButton = styled.button`
-  width: 100px;
-  height: 40px;
-  background-color: #333;
+  width: 120px;
+  height: 45px;
+  background-color: #3f4142; 
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  font-size: 16px; 
+  font-weight: bold; 
+  transition: background-color 0.3s ease;
+
   &:hover {
-    background-color: #555;
+    background-color: #4c4f52; 
   }
 `;
 

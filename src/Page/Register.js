@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { styled } from "styled-components";
-import { signUp } from "../apis/auth/signUp";
+import { signUp } from "../apis/auth/signUp";  // signUp 함수 임포트
 
 const Register = () => {
   const [data, setData] = useState({
@@ -13,35 +13,34 @@ const Register = () => {
     classNumber: "",
     birth: "",
   });
-  const [check, setCheck] = useState("");
+
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setData({ ...data, [name]: value });
   };
 
-  const handleSignUp = () => {
-    if (data.password === check) {
-      signUp(data)
-        .then((res) => {
-          if (res) {  // 응답이 있는 경우 처리
-            alert("회원가입이 성공적으로 완료되었습니다.😆");
-            window.location.href = "/Login";
-          } else {
-            console.error("회원가입 실패: 응답 데이터가 없습니다.");
-          }
-        })
-        .catch((error) => {
-          console.error("회원가입 오류:", error);
-        });
-    } else {
+  const handleSignup = async (event) => {
+    event.preventDefault();
+
+    if (data.password !== confirmPassword) {
       alert("비밀번호가 일치하지 않습니다.😭");
+      return;
     }
-  };  
+
+    try {
+      await signUp(data);
+      navigate("/login");  // 회원가입 성공 시 로그인 페이지로 이동
+    } catch (err) {
+      console.error("회원가입 요청 실패:", err);
+    }
+  };
 
   return (
     <Container>
-      <Form onSubmit={(e) => e.preventDefault()}>
+      <Form onSubmit={handleSignup}>
         <Title>회원가입</Title>
 
         <InputRow>
@@ -83,7 +82,7 @@ const Register = () => {
             <Input
               type="password"
               placeholder="비밀번호 확인"
-              onChange={(e) => setCheck(e.target.value)}
+              onChange={(e) => setConfirmPassword(e.target.value)}
               required
             />
           </InputWrapper>
@@ -93,7 +92,7 @@ const Register = () => {
           <InputWrapper>
             <Label>이름</Label>
             <Input
-              name="userName"
+              name="phonenumber"
               placeholder="이름을 입력하세요."
               onChange={handleChange}
               required
@@ -116,7 +115,7 @@ const Register = () => {
             <Label>학번</Label>
             <Input
               name="classNumber"
-              placeholder="학년과 반을 입력하세요. (ex: 1-2)"
+              placeholder="학년과 반을 입력하세요. (ex: 1100 => 1학년 1반)"
               onChange={handleChange}
               required
             />
@@ -126,19 +125,17 @@ const Register = () => {
             <Label>생년월일</Label>
             <Input
               name="birth"
-              placeholder="생년월일을 입력하세요. (ex: 080402)"
+              placeholder="생년월일을 입력하세요. (ex: 080101)"
               onChange={handleChange}
               required
             />
           </InputWrapper>
         </InputRow>
 
-        <Button type="button" onClick={handleSignUp}>
-          회원가입
-        </Button>
+        <Button type="submit">회원가입</Button>
 
         <NoAccount>
-          이미 계정이 있으신가요? <CButton to="/Login">로그인</CButton>
+          이미 계정이 있으신가요? <CButton to="/login">로그인</CButton>
         </NoAccount>
       </Form>
     </Container>

@@ -1,13 +1,15 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import { styled } from "styled-components";
 import { signIn } from "../apis/auth/signIn";
+import { Link, useNavigate } from "react-router-dom";
 
 export const Login = () => {
   const [data, setData] = useState({
     accountId: "",
-    password: "",
+    password: ""
   });
+
+  const navigate = useNavigate(); 
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -15,14 +17,16 @@ export const Login = () => {
   };
 
   const handleLogin = () => {
-    signIn(data).then((res) => {
+    signIn(data).then(res => {
       if (res) {
         localStorage.setItem("accessToken", res.data.accessToken);
         localStorage.setItem("refreshToken", res.data.refreshToken);
-        window.location.href = "/";
+        window.alert("성공적으로 로그인이 완료되었습니다!"); 
+        navigate("/");  
       }
     }).catch((error) => {
       console.error("로그인 오류:", error);
+      window.alert("로그인에 실패했습니다. 다시 시도해주세요.");
     });
   };
 
@@ -34,23 +38,12 @@ export const Login = () => {
         <InputWrapper>
           <Label>아이디</Label>
           <Input
-            name="userId"
+            name="accountId"
             placeholder="아이디를 입력하세요"
             onChange={handleChange}
             required
           />
         </InputWrapper>
-
-        <InputWrapper>
-          <Label>이름</Label>
-          <Input
-            name="userName"
-            placeholder="이름을 입력하세요"
-            onChange={handleChange}
-            required
-          />
-        </InputWrapper>
-
         <InputWrapper>
           <Label>비밀번호</Label>
           <Input
@@ -63,7 +56,7 @@ export const Login = () => {
         </InputWrapper>
 
         <LinksWrapper>
-        아직 계정이 없으신가요? &nbsp; <CButton to="/SignUp"> 회원가입</CButton>
+          아직 계정이 없으신가요? &nbsp; <CButton to="/SignUp">회원가입</CButton>
         </LinksWrapper>
 
         <Button type="button" onClick={handleLogin}>
@@ -101,14 +94,14 @@ const Form = styled.form`
 const Title = styled.h1`
   font-size: 1.8rem;
   font-weight: bold;
-  margin-bottom: 18px; /* 제목과 입력 필드 간격 조정 */
+  margin-bottom: 18px;
   color: #333;
-  align-self: flex-start; /* 왼쪽 정렬 */
+  align-self: flex-start;
 `;
 
 const InputWrapper = styled.div`
   width: 100%;
-  margin-bottom: 10px; /* 입력 필드 간격 조정 */
+  margin-bottom: 10px;
 `;
 
 const Label = styled.label`
@@ -122,13 +115,13 @@ const Label = styled.label`
 const Input = styled.input`
   width: 96%;
   padding: 8px;
-  border: none; /* 상하좌우 경계선 제거 */
-  border-bottom: 2px solid #ccc; /* 밑줄만 표시 */
-  background: transparent; /* 배경 투명하게 설정 */
+  border: none;
+  border-bottom: 2px solid #ccc;
+  background: transparent;
   font-size: 14px;
   color: #333;
   &:focus {
-    border-bottom: 2px solid #333; /* 포커스 시 밑줄 색상 변경 */
+    border-bottom: 2px solid #333;
     outline: none;
   }
 `;
@@ -158,19 +151,13 @@ const LinksWrapper = styled.div`
   color: #333;
 `;
 
-/*const Separator = styled.span`
-  color: #333;
-  font-weight: bold;
-  margin: 0 8px;
-`;*/
-
 const CButton = styled(Link)`
   cursor: pointer;
   color: #333;
   font-weight: bold;
-  text-decoration: none; /* 기본 상태에서 언더라인 없음 */
+  text-decoration: none;
   &:hover {
-    text-decoration: underline; /* 호버 시 언더라인 추가 */
+    text-decoration: underline;
   }
 `;
 
